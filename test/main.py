@@ -89,24 +89,7 @@ def generate_pyecharts_wordcloud(word_counts):
     return wordcloud.render_embed()
 
 
-# 7. 使用matplotlib生成经典的词云
-def generate_wordcloud_image(word_counts):
-    font_path = '/mount/src/cipin/test/msyh.ttc'  # 指定字体文件的绝对路径
-    if not os.path.exists(font_path):
-        logging.error(f"字体文件 {font_path} 未找到。")
-        st.error("字体文件未找到，无法生成词云。")
-        return
 
-    try:
-        filtered_word_counts = {word: count for word, count in word_counts.items() if len(word) > 1}
-        wc = WordCloud(font_path=font_path, width=800, height=400).generate_from_frequencies(filtered_word_counts)
-        plt.figure(figsize=(10, 5))
-        plt.imshow(wc, interpolation="bilinear")
-        plt.axis('off')
-        st.pyplot(plt)
-    except Exception as e:
-        logging.error(f"生成词云时发生错误：{e}")
-        st.error("生成词云失败。")
 
 
 
@@ -185,14 +168,13 @@ def app():
     url_input = st.text_input("请输入一个网址获取文本内容：")
 
     chart_option = st.sidebar.selectbox("选择可视化图表", [
-        "传统词云",
         "PyeCharts 词云",
         "词频柱状图",
         "词频折线图",
         "词频饼图",
         "词频散点图",
-        "词频面积图",  # 修改选项为面积图
-        "词频热力图"  # 新增热力图选项
+        "词频面积图",  
+        "词频热力图" 
     ])
 
     min_freq = st.sidebar.slider("设置最小词频", 1, 200, 100)  # 最小词频筛选
@@ -221,9 +203,7 @@ def app():
             st.text(top_20_text)
 
             # 根据选择的图表类型绘制相应的图表
-            if chart_option == "传统词云":
-                generate_wordcloud_image(filtered_word_counts)
-            elif chart_option == "PyeCharts 词云":
+            if chart_option == "PyeCharts 词云":
                 wordcloud_html = generate_pyecharts_wordcloud(filtered_word_counts)
                 components.html(wordcloud_html, height=600)
             elif chart_option == "词频柱状图":
