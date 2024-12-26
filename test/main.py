@@ -14,6 +14,21 @@ import streamlit.components.v1 as components  # for embedding HTML
 from wordcloud import WordCloud
 import os
 
+# 设置中文字体
+components.html(
+    """
+    <style>
+        @font-face {
+            font-family: 'Microsoft YaHei';
+            src: local('Microsoft YaHei');
+        }
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+    </style>
+    """,
+    height=0,
+)
 matplotlib.rcParams['font.family'] = 'sans-serif'
 plt.rcParams['font.sans-serif'] = ['test/MSYH.TTC'] 
 
