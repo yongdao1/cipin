@@ -13,11 +13,8 @@ import seaborn as sns
 import streamlit.components.v1 as components  # for embedding HTML
 from wordcloud import WordCloud
 import os
-
-# 配置 Matplotlib 使用中文字体
-plt.rcParams['font.sans-serif'] = 'SimHei'
-plt.rcParams['axes.unicode_minus'] = False  # 正确显示负号
-
+import matplotlib.pyplot as pyplot 
+zhfont1 = matplotlib.font_manager.FontProperties(fname="SourceHanSansSC-Bold.otf") 
 
 # 1. 获取网页内容
 def get_text_from_url(url):
