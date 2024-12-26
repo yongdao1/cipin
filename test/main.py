@@ -13,6 +13,8 @@ import seaborn as sns
 import streamlit.components.v1 as components  # for embedding HTML
 from wordcloud import WordCloud
 
+# 配置日志记录
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 matplotlib.rcParams['font.family'] = 'sans-serif'
 matplotlib.rcParams['font.sans-serif'] = ['SimHei']  # 使用黑体字体
 
@@ -90,12 +92,23 @@ def generate_pyecharts_wordcloud(word_counts):
 
 # 7. 使用matplotlib生成经典的词云
 def generate_wordcloud_image(word_counts):
-    filtered_word_counts = {word: count for word, count in word_counts.items() if len(word) > 1}
-    wc = WordCloud(font_path='msyh.ttc', width=800, height=400).generate_from_frequencies(filtered_word_counts)
-    plt.figure(figsize=(10, 5))
-    plt.imshow(wc, interpolation="bilinear")
-    plt.axis('off')
-    st.pyplot(plt)
+    font_path = '/mount/src/cipin/test/msyh.ttc'  # 指定字体文件的绝对路径
+    if not os.path.exists(font_path):
+        logging.error(f"字体文件 {font_path} 未找到。")
+        st.error("字体文件未找到，无法生成词云。")
+        return
+
+    try:
+        filtered_word_counts = {word: count for word, count in word_counts.items() if len(word) > 1}
+        wc = WordCloud(font_path=font_path, width=800, height=400).generate_from_frequencies(filtered_word_counts)
+        plt.figure(figsize=(10, 5))
+        plt.imshow(wc, interpolation="bilinear")
+        plt.axis('off')
+        st.pyplot(plt)
+    except Exception as e:
+        logging.error(f"生成词云时发生错误：{e}")
+        st.error("生成词云失败。")
+
 
 
 # 8. 创建词频柱状图
