@@ -15,7 +15,7 @@ from wordcloud import WordCloud
 import os
 
 matplotlib.rcParams['font.family'] = 'sans-serif'
-plt.rcParams['font.sans-serif'] = ['Microsoft YaHei'] 
+plt.rcParams['font.sans-serif'] = ['/mount/src/cipin/test/MSYH.TTC'] 
 
 
 # 1. 获取网页内容
