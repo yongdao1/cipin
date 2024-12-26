@@ -15,7 +15,7 @@ from wordcloud import WordCloud
 import os
 
 matplotlib.rcParams['font.family'] = 'sans-serif'
-matplotlib.rcParams['font.sans-serif'] = ['Microsoft YaHei']  # 使用黑体字体
+plt.rcParams['font.sans-serif'] = ['Microsoft YaHei'] 
 
 
 # 1. 获取网页内容
