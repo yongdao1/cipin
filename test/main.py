@@ -12,6 +12,10 @@ from pyecharts.charts import WordCloud as PyeChartsWordCloud
 import seaborn as sns
 import streamlit.components.v1 as components  # for embedding HTML
 from wordcloud import WordCloud
+import os
+
+# 配置日志记录
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 matplotlib.rcParams['font.family'] = 'sans-serif'
 matplotlib.rcParams['font.sans-serif'] = ['SimHei']  # 使用黑体字体
