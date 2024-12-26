@@ -15,7 +15,7 @@ from wordcloud import WordCloud
 import os
 
 matplotlib.rcParams['font.family'] = 'sans-serif'
-plt.rcParams['font.sans-serif'] = ['../test/MSYH.TTC'] 
+plt.rcParams['font.sans-serif'] = ['test/MSYH.TTC'] 
 
 
 # 1. 获取网页内容
