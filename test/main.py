@@ -185,7 +185,7 @@ def app():
 
     min_freq = st.sidebar.slider("设置最小词频", 1, 200, 100)  # 最小词频筛选
 
-    stopwords_file = r"C:\Users\Rin\Desktop\test\stopwords.txt"  # 停用词文件路径
+    stopwords_file = r"..\test\stopwords.txt"  # 停用词文件路径
     stopwords = load_stopwords(stopwords_file)
 
     if url_input:
