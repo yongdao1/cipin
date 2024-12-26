@@ -14,23 +14,16 @@ import streamlit.components.v1 as components  # for embedding HTML
 from wordcloud import WordCloud
 import os
 
-# 设置中文字体
-components.html(
-    """
-    <style>
-        @font-face {
-            font-family: 'Microsoft YaHei';
-            src: local('Microsoft YaHei');
-        }
-        body {
-            font-family: 'Microsoft YaHei', sans-serif;
-        }
-    </style>
-    """,
-    height=0,
-)
-matplotlib.rcParams['font.family'] = 'sans-serif'
-plt.rcParams['font.sans-serif'] = ['test/MSYH.TTC'] 
+
+# 获取当前文件的目录
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 设置字体路径
+font_path = os.path.join(current_dir, 'test', 'MSYH.TTC')
+
+# 配置 Matplotlib 使用中文字体
+plt.rcParams['font.sans-serif'] = [font_path]
+plt.rcParams['axes.unicode_minus'] = False  # 正确显示负号
 
 
 # 1. 获取网页内容
