@@ -113,7 +113,7 @@ def plot_funnel_chart(word_freq_df):
 def app():
     st.sidebar.title("图表选择与参数设置")
     url_input = st.text_input("请输入一个网址获取文本内容：")
-     chart_type = st.sidebar.selectbox(
+    chart_type = st.sidebar.selectbox(
             '选择图表类型',
             ['词云', '条形图', '折线图', '饼图', '散点图', '雷达图', '漏斗图']
         )
