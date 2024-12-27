@@ -136,36 +136,25 @@ def app():
             st.text(top_20_text)
 
            # 根据用户选择的图表类型生成图表
-        if chart_type == '词云':
-            wordcloud = generate_wordcloud(filtered_word_counts)
-            st.subheader('词云')
-            render_pyecharts_chart(wordcloud)
-        elif chart_type == '条形图':
-            bar = generate_bar_chart(filtered_word_counts)
-            st.subheader('词频条形图')
-            render_pyecharts_chart(bar)
-        elif chart_type == '折线图':
-            line = generate_line_chart(filtered_word_counts)
-            st.subheader('词频折线图')
-            render_pyecharts_chart(line)
-        elif chart_type == '饼图':
-            pie = generate_pie_chart(filtered_word_counts)
-            st.subheader('词频饼图')
-            render_pyecharts_chart(pie)
-        elif chart_type == '散点图':
-            scatter = generate_scatter_chart(filtered_word_counts)
-            st.subheader('词频散点图')
-            render_pyecharts_chart(scatter)
-        elif chart_type == '雷达图':
-            radar = generate_radar_chart(filtered_word_counts)
-            st.subheader('词频雷达图')
-            render_pyecharts_chart(radar)
-        elif chart_type == '漏斗图':
-            funnel = generate_funnel_chart(filtered_word_counts)
-            st.subheader('词频漏斗图')
-            render_pyecharts_chart(funnel)
+            if chart_type == '词云':
+                chart = generate_pyecharts_wordcloud(word_counts)
+            elif chart_type == '条形图':
+                chart = plot_bar_chart(word_freq_df)
+            elif chart_type == '折线图':
+                chart = plot_line_chart(word_freq_df)
+            elif chart_type == '饼图':
+                chart = plot_pie_chart(word_freq_df)
+            elif chart_type == '散点图':
+                chart = plot_scatter_chart(word_freq_df)
+            elif chart_type == '雷达图':
+                chart = plot_radar_chart(word_freq_df)
+            elif chart_type == '漏斗图':
+                chart = plot_funnel_chart(word_freq_df)
+            
+            # 显示选定的图表
+            components.html(chart, height=600)
         else:
-            st.error("获取网页内容失败，无法提取有效文本！")
+            st.error("未能从该网址获取到有效的文本内容，请检查网址是否有效。")
 
 if __name__ == "__main__":
     app()
