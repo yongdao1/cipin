@@ -94,7 +94,7 @@ def app():
         "词频散点图"
     ])
     min_freq = st.sidebar.slider("设置最小词频", 1, 200, 100)
-    stopwords_file = "stopwords.txt"  # 停用词文件路径
+    stopwords_file = "/mount/src/cipin/test/stopwords.txt"  # 停用词文件路径
     stopwords = load_stopwords(stopwords_file)
 
     if url_input:
