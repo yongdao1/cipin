@@ -85,26 +85,23 @@ def plot_scatter_chart(word_freq_df):
 def plot_radar_chart(word_freq_df):
     radar = Radar()
 
-if len(word_freq_df) >= 3:
-    indices = word_freq_df.head(3)['词语'].tolist()
-    values = word_freq_df.head(3)['词频'].tolist()
-    schema = [
-        opts.RadarIndicatorItem(name=i, max_=word_freq_df['词频'].max()) for i in indices
-    ]
-    radar.add_schema(schema=schema)
-    radar.add("", [values])
-    radar.set_global_opts(title_opts=opts.TitleOpts(title="词频雷达图"))
-    return radar.render_embed()
-else:
-    return "数据不足以生成雷达图"
+    if len(word_freq_df) >= 3:
+        indices = word_freq_df.head(3)['词语'].tolist()
+        values = word_freq_df.head(3)['词频'].tolist()
+        schema = [
+            opts.RadarIndicatorItem(name=i, max_=word_freq_df['词频'].max()) for i in indices
+        ]
+        radar.add_schema(schema=schema)
+        radar.add("", [values])
+        radar.set_global_opts(title_opts=opts.TitleOpts(title="词频雷达图"))
+        return radar.render_embed()
+    else:
+        return "数据不足以生成雷达图"
 
 
 # 12. 创建词频漏斗图
 def plot_funnel_chart(word_freq_df):
     funnel = Funnel()
-    # 假设我们取词频最高的5个词作为漏斗图的数据
-
-
 if len(word_freq_df) >= 5:
     items = [list(z) for z in zip(word_freq_df.head(5)['词语'].tolist(), word_freq_df.head(5)['词频'].tolist())]
     funnel.add("", items)
