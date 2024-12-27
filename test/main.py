@@ -102,13 +102,13 @@ def plot_radar_chart(word_freq_df):
 # 12. 创建词频漏斗图
 def plot_funnel_chart(word_freq_df):
     funnel = Funnel()
-if len(word_freq_df) >= 5:
-    items = [list(z) for z in zip(word_freq_df.head(5)['词语'].tolist(), word_freq_df.head(5)['词频'].tolist())]
-    funnel.add("", items)
-    funnel.set_global_opts(title_opts=opts.TitleOpts(title="词频漏斗图"))
-    return funnel.render_embed()
-else:
-    return "数据不足以生成漏斗图"
+    if len(word_freq_df) >= 5:
+        items = [list(z) for z in zip(word_freq_df.head(5)['词语'].tolist(), word_freq_df.head(5)['词频'].tolist())]
+        funnel.add("", items)
+        funnel.set_global_opts(title_opts=opts.TitleOpts(title="词频漏斗图"))
+        return funnel.render_embed()
+    else:
+        return "数据不足以生成漏斗图"
 # 主函数
 def app():
     st.sidebar.title("图表选择与参数设置")
