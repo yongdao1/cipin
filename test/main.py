@@ -113,13 +113,10 @@ def plot_funnel_chart(word_freq_df):
 def app():
     st.sidebar.title("图表选择与参数设置")
     url_input = st.text_input("请输入一个网址获取文本内容：")
-    chart_option = st.sidebar.selectbox("选择可视化图表", [
-        "PyeCharts 词云",
-        "词频柱状图",
-        "词频折线图",
-        "词频饼图",
-        "词频散点图"
-    ])
+     chart_type = st.sidebar.selectbox(
+            '选择图表类型',
+            ['词云', '条形图', '折线图', '饼图', '散点图', '雷达图', '漏斗图']
+        )
     min_freq = st.sidebar.slider("设置最小词频", 1, 200, 100)
     stopwords_file = "/mount/src/cipin/test/stopwords.txt"  # 停用词文件路径
     stopwords = load_stopwords(stopwords_file)
@@ -138,21 +135,35 @@ def app():
                 top_20_text += f"{row['词语']} : {row['词频']}\n"
             st.text(top_20_text)
 
-            if chart_option == "PyeCharts 词云":
-                wordcloud_html = generate_pyecharts_wordcloud(filtered_word_counts)
-                components.html(wordcloud_html, height=600)
-            elif chart_option == "词频柱状图":
-                bar_chart_html = plot_bar_chart(word_freq_df)
-                components.html(bar_chart_html, height=600)
-            elif chart_option == "词频折线图":
-                line_chart_html = plot_line_chart(word_freq_df)
-                components.html(line_chart_html, height=600)
-            elif chart_option == "词频饼图":
-                pie_chart_html = plot_pie_chart(word_freq_df)
-                components.html(pie_chart_html, height=600)
-            elif chart_option == "词频散点图":
-                scatter_chart_html = plot_scatter_chart(word_freq_df)
-                components.html(scatter_chart_html, height=600)
+           # 根据用户选择的图表类型生成图表
+        if chart_type == '词云':
+            wordcloud = generate_wordcloud(filtered_word_counts)
+            st.subheader('词云')
+            render_pyecharts_chart(wordcloud)
+        elif chart_type == '条形图':
+            bar = generate_bar_chart(filtered_word_counts)
+            st.subheader('词频条形图')
+            render_pyecharts_chart(bar)
+        elif chart_type == '折线图':
+            line = generate_line_chart(filtered_word_counts)
+            st.subheader('词频折线图')
+            render_pyecharts_chart(line)
+        elif chart_type == '饼图':
+            pie = generate_pie_chart(filtered_word_counts)
+            st.subheader('词频饼图')
+            render_pyecharts_chart(pie)
+        elif chart_type == '散点图':
+            scatter = generate_scatter_chart(filtered_word_counts)
+            st.subheader('词频散点图')
+            render_pyecharts_chart(scatter)
+        elif chart_type == '雷达图':
+            radar = generate_radar_chart(filtered_word_counts)
+            st.subheader('词频雷达图')
+            render_pyecharts_chart(radar)
+        elif chart_type == '漏斗图':
+            funnel = generate_funnel_chart(filtered_word_counts)
+            st.subheader('词频漏斗图')
+            render_pyecharts_chart(funnel)
         else:
             st.error("获取网页内容失败，无法提取有效文本！")
 
